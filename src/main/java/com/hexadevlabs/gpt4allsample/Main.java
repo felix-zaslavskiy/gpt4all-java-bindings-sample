@@ -17,10 +17,10 @@ public class Main {
         String baseModelPath = "C:\\Users\\felix\\AppData\\Local\\nomic.ai\\GPT4All\\";
         String librarySearchPath = "C:\\Users\\felix\\gpt4all\\lib\\";
 
-        if(args.length>1){
-            if(args[1].equals("mpt")){
+        if(args.length>0){
+            if(args[0].equals("mpt")){
                 modelFilePath = "ggml-mpt-7b-instruct.bin";
-            }else if(args[1].equals("llama")){
+            }else if(args[0].equals("llama")){
                 modelFilePath = "ggml-vicuna-7b-1.1-q4_2.bin";
             }
         }
@@ -28,19 +28,19 @@ public class Main {
         LLModel.LIBRARY_SEARCH_PATH = librarySearchPath;
 
         Path modelPath = Path.of(baseModelPath + modelFilePath);
-        if(args.length==1){
+        if(args.length==0){
             try ( GPTJModel model = new GPTJModel(modelPath) ){
                 chat(model);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }else if(args[1].equals("mpt")){
+        }else if(args[0].equals("mpt")){
             try ( MPTModel model = new MPTModel(modelPath) ){
                 chat(model);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }else if(args[1].equals("llama")){
+        }else if(args[0].equals("llama")){
             try ( LlamaModel model = new LlamaModel(modelPath) ){
                 chat(model);
             } catch (Exception e) {
