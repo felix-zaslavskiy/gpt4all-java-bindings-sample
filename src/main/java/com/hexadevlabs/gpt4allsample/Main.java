@@ -1,9 +1,6 @@
 package com.hexadevlabs.gpt4allsample;
 
-import com.hexadevlabs.gpt4all.GPTJModel;
 import com.hexadevlabs.gpt4all.LLModel;
-import com.hexadevlabs.gpt4all.LlamaModel;
-import com.hexadevlabs.gpt4all.MPTModel;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -14,9 +11,9 @@ public class Main {
     public static void main(String[] args){
 
         String modelFilePath = "ggml-gpt4all-j-v1.3-groovy.bin";
-        String baseModelPath = "C:\\Users\\felix\\AppData\\Local\\nomic.ai\\GPT4All\\";
+        //String baseModelPath = "C:\\Users\\felix\\AppData\\Local\\nomic.ai\\GPT4All\\";
         // Alt path for WSL Linux
-        // String baseModelPath = "/mnt/c/Users/felix/AppData/Local/nomic.ai/GPT4All/";
+        String baseModelPath = "/mnt/c/Users/felix/AppData/Local/nomic.ai/GPT4All/";
         String librarySearchPath = "C:\\Users\\felix\\gpt4all\\lib\\";
 
         if(args.length>0){
@@ -30,36 +27,20 @@ public class Main {
         LLModel.LIBRARY_SEARCH_PATH = librarySearchPath;
 
         Path modelPath = Path.of(baseModelPath + modelFilePath);
-        if(args.length==0){
-            try ( GPTJModel model = new GPTJModel(modelPath) ){
-                chat(model);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }else if(args[0].equals("mpt")){
-            try ( MPTModel model = new MPTModel(modelPath) ){
-                chat(model);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }else if(args[0].equals("llama")){
-            try ( LlamaModel model = new LlamaModel(modelPath) ){
-                chat(model);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
 
-    }
+        LLModel.GenerationConfig config = LLModel.config()
+                .withNPredict(4096).build();
 
-    private static void chat(LLModel model) {
-            LLModel.GenerationConfig config = LLModel.config()
-                    .withNPredict(4096).build();
-
+        try ( LLModel model = new LLModel(modelPath) ){
             model.chatCompletion(
                     List.of(Map.of("role", "user", "content", "Add 2+2"),
                             Map.of("role", "assistant", "content", "4"),
                             Map.of("role", "user", "content", "Multiply 4 * 5")), config, true, true);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }
