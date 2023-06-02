@@ -15,6 +15,8 @@ public class Main {
 
         String modelFilePath = "ggml-gpt4all-j-v1.3-groovy.bin";
         String baseModelPath = "C:\\Users\\felix\\AppData\\Local\\nomic.ai\\GPT4All\\";
+        // Alt path for WSL Linux
+        // String baseModelPath = "/mnt/c/Users/felix/AppData/Local/nomic.ai/GPT4All/";
         String librarySearchPath = "C:\\Users\\felix\\gpt4all\\lib\\";
 
         if(args.length>0){
