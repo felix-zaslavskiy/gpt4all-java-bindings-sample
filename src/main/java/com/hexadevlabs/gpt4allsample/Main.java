@@ -25,7 +25,7 @@ public class Main {
         } else if(isLinux){
             baseModelPath = "/mnt/c/Users/felix/AppData/Local/nomic.ai/GPT4All/";
         } else if(isMac) {
-            baseModelPath = "/Users/fzaslavs/Library/Application Support/nomic.ai/GPT4All";
+            baseModelPath = "/Users/fzaslavs/Library/Application Support/nomic.ai/GPT4All/";
         }
 
 
