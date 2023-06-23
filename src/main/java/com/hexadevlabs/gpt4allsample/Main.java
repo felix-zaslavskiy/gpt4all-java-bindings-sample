@@ -13,19 +13,36 @@ public class Main {
         // DIRECTION: Update the baseModelPath to the location of model files on your system.
 
         String modelFilePath = "ggml-gpt4all-j-v1.3-groovy.bin";
-        String baseModelPath = "C:\\Users\\felix\\AppData\\Local\\nomic.ai\\GPT4All\\";
 
-        // Alt path for WSL Linux
-        //String baseModelPath = "/mnt/c/Users/felix/AppData/Local/nomic.ai/GPT4All/";
+        String osName = System.getProperty("os.name").toLowerCase();
+        boolean isWindows = osName.startsWith("windows");
+        boolean isMac = osName.startsWith("mac os x");
+        boolean isLinux = osName.startsWith("linux");
+
+        String baseModelPath = null;
+        if(isWindows){
+            baseModelPath ="C:\\Users\\felix\\AppData\\Local\\nomic.ai\\GPT4All\\";
+        } else if(isLinux){
+            baseModelPath = "/mnt/c/Users/felix/AppData/Local/nomic.ai/GPT4All/";
+        } else if(isMac) {
+            baseModelPath = "/Users/fzaslavs/Library/Application Support/nomic.ai/GPT4All";
+        }
+
 
         // Optionally in case override to location of shared libraries is necessary
         //LLModel.LIBRARY_SEARCH_PATH = "C:\\Users\\felix\\gpt4all\\lib\\";
 
         if(args.length>0){
-            if(args[0].equals("mpt")){
-                modelFilePath = "ggml-mpt-7b-instruct.bin";
-            }else if(args[0].equals("llama")){
-                modelFilePath = "ggml-vicuna-7b-1.1-q4_2.bin";
+            switch (args[0]) {
+                case "mpt":
+                    modelFilePath = "ggml-mpt-7b-instruct.bin";
+                    break;
+                case "llama":
+                    modelFilePath = "ggml-vicuna-7b-1.1-q4_2.bin";
+                    break;
+                case "replit":
+                    modelFilePath = "ggml-replit-code-v1-3b.bin";
+                    break;
             }
         }
 
