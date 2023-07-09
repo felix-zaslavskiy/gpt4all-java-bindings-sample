@@ -43,6 +43,9 @@ public class Main {
                 case "replit":
                     modelFilePath = "ggml-replit-code-v1-3b.bin";
                     break;
+                case "falcon":
+                    modelFilePath = "ggml-model-gpt4all-falcon-q4_0.bin";
+                    break;
             }
         }
 
