@@ -46,6 +46,9 @@ public class Main {
                 case "falcon":
                     modelFilePath = "ggml-model-gpt4all-falcon-q4_0.bin";
                     break;
+                case "orca":
+                    modelFilePath= "orca-mini-3b.ggmlv3.q4_0.bin";
+                    break;
             }
         }
 
