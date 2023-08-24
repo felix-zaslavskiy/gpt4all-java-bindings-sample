@@ -62,11 +62,24 @@ public class Main {
             LLModel.GenerationConfig config = LLModel.config()
                     .withNPredict(4096).build();
 
-            // String result = gptjModel.generate(prompt, config, true);
+            System.out.println("Using ChatCompletion api:\n");
+            // Using Chat Completion Template
             model.chatCompletion(
                     List.of(Map.of("role", "system", "content", "You are a helpful assistant"),
                             Map.of("role", "user", "content", "Add 2+2")), config, true, true);
 
+            System.out.println();
+            System.out.println();
+            System.out.println("Using Generate method:\n");
+
+            // Using the Generate method.
+            // Note that you will have to provide the full prompt here yourself.
+            // Print to stdout.
+            String prompt = "You are a helpful assistant.  \n" +
+                            "Human: What is result of adding 2 and 2?\n" +
+                            "Assistant: ";
+            System.out.println(prompt);
+            model.generate(prompt, config, true);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
